@@ -115,11 +115,11 @@ func splunkDashboardsUpdate(d *schema.ResourceData, meta interface{}) error {
 		updateUser = aclObject.Owner
 	}
 
-	if err := (*provider.Client).UpdateDashboardObject(aclObject.Owner, aclObject.App, name, splunkDashboardsObj); err != nil {
+	if err := (*provider.Client).UpdateDashboardObject(updateUser, aclObject.App, name, splunkDashboardsObj); err != nil {
 		return err
 	}
 
-	if err := (*provider.Client).UpdateAcl(aclObject.Owner, aclObject.App, name, aclObject, "data", "ui", "views"); err != nil {
+	if err := (*provider.Client).UpdateAcl(updateUser, aclObject.App, name, aclObject, "data", "ui", "views"); err != nil {
 		return err
 	}
 
