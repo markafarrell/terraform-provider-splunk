@@ -68,7 +68,7 @@ func splunkDashboardsRead(d *schema.ResourceData, meta interface{}) error {
 		aclObject.Owner = "nobody"
 	}
 
-	resp, err := (*provider.Client).ReadDashboardObject(name, readUser, aclObject.App)
+	resp, err := (*provider.Client).ReadDashboardObject(name, aclObject.Owner, aclObject.App)
 	if err != nil {
 		return err
 	}
