@@ -64,7 +64,14 @@ func splunkDashboardsRead(d *schema.ResourceData, meta interface{}) error {
 
 	aclObject := getResourceDataViewACL(d)
 
-	resp, err := (*provider.Client).ReadDashboardObject(name, aclObject.Owner, aclObject.App)
+	readUser := "nobody"
+
+	if aclObject.Sharing == "user" {
+		// If we have a private dashboard we can only query it using the owner
+		readUser = aclObject.Owner
+	}
+
+	resp, err := (*provider.Client).ReadDashboardObject(name, readUser, aclObject.App)
 	if err != nil {
 		return err
 	}

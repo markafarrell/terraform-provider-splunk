@@ -24,7 +24,7 @@ func (client *Client) CreateDashboardObject(owner string, app string, splunkDash
 }
 
 func (client *Client) ReadDashboardObject(name, owner, app string) (*http.Response, error) {
-	endpoint := client.BuildSplunkURL(nil, "servicesNS", "nobody", app, "data", "ui", "views", name)
+	endpoint := client.BuildSplunkURL(nil, "servicesNS", owner, app, "data", "ui", "views", name)
 	resp, err := client.Get(endpoint)
 	if err != nil {
 		return nil, err
